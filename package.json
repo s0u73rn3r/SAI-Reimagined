@@ -1,0 +1,67 @@
+{
+  "name": "capstoneproject",
+  "productName": "capstoneproject",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "s0u73rn3r",
+    "email": "ldb31@students.uwf.edu"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Kazumi-Nakamura/Capstone-Project#readme",
+  "dependencies": {
+    "electron-settings": "^4.0.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.18.1",
+    "jquery": "^3.6.1",
+    "mongodb": "^4.11.0",
+    "mongoose": "^6.6.5"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0",
+    "@electron-forge/maker-deb": "^6.0.0",
+    "@electron-forge/maker-rpm": "^6.0.0",
+    "@electron-forge/maker-squirrel": "^6.0.0",
+    "@electron-forge/maker-zip": "^6.0.0",
+    "electron": "^21.2.2"
+  },
+  "jest": {
+    "preset": "@shelf/jest-mongodb"
+  },
+  "config": {
+    "forge": {
+        "packagerConfig": {},
+        "makers": [
+            {
+                "name": "@electron-forge/maker-squirrel",
+                "config": {
+                    "name": "SAI: Reimagined"
+                }
+            },
+            {
+                "name": "@electron-forge/maker-zip",
+                "platforms": [
+                    "darwin"
+                ]
+            },
+            {
+                "name": "@electron-forge/maker-deb",
+                "config": {}
+            },
+            {
+                "name": "@electron-forge/maker-rpm",
+                "config": {}
+            }
+        ]
+    }
+}
+}

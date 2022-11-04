@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Courses</title>
+    <script src="courseList.js"> </script>
+</head>
+
+<body style="background-color:#2a98f1;">
+    <style>
+        .logout button {
+        background-color: #ffffff; 
+        color: black; 
+        cursor: pointer; 
+        padding: 10px;
+        float: right;
+        font-size:15px;
+        }
+      
+        .logout button:hover {
+        background-color: #d1d1d1;
+        }
+    </style>
+
+    <logout class="logout">
+        <button onclick="logout()">Log Out</button> <br>
+    </logout>
+
+    <style>
+        fieldset {
+            margin:0 auto;
+            width: 20%;
+            padding: 5%;
+        }
+    </style>
+
+    <fieldset style="border-color: rgb(4, 62, 187);">
+        <legend style="text-align: center; font-size: 200%; color:rgb(4, 37, 107);">Fall Semester 2022</legend>
+        <style>
+        .btn-group button {
+            background-color: #ffffff;
+            border: 1px solid black;
+            color: black;
+            padding: 5%; 
+            cursor: pointer;
+            width: 100%;
+            display: block;
+            margin: 0 auto; 
+            font-size: auto;
+            line-height: 30px;
+            margin-top: 10%;
+            border-radius: 12px;
+            }
+            
+            .btn-group button:not(:last-child) {
+              border-bottom: none;
+            }
+            
+            .btn-group button:hover {
+              background-color: #d1d1d1;
+            }
+        </style>
+        
+        <!--Placeholder course names, need to pull course name of student from DB using pullCourse()-->
+        <div class="btn-group">
+            <button onclick="startSAI()">Calculus</button>
+            <button onclick="startSAI()">JavaScript</button>
+            <button onclick="startSAI()">Physics</button>
+            <button onclick="startSAI()">English Comp</button>
+        </div>
+    </fieldset>
+
+</body>
+</html>
