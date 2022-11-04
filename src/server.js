@@ -18,12 +18,7 @@ let window;
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
-// mongoose.connect(URI);
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error: "));
-// db.once("open", function () {
-//   console.log("Connected successfully");
-// });
+
 MongoClient.connect(URI, (err, client) => {
 
   if (err) {
@@ -35,12 +30,6 @@ MongoClient.connect(URI, (err, client) => {
   currentDatabase = client.db('Capstone-Db'); /* currentDatabase contains a Db */
 
 });
-
-/*app.use(Router);
-
-app.listen(port, () => {
-  console.log(`http://localhost:${port}`)
-})*/
 
 
 const makeWindow = () => {
@@ -60,8 +49,6 @@ const makeWindow = () => {
 
 app.on('ready', makeWindow);
 app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
   }
@@ -78,7 +65,7 @@ ipc.on('loginUser', async(event, loginInfo) => {
   } else {
 
       if (user.password === loginInfo.password) {
-          event.sender.send('loginSuccesful', user); // Don't understand why we are sending something if it is never used. 
+          event.sender.send('loginSuccesful', user);
       } else {
           dialog.showErrorBox('Password is incorrect', 'Try again');
       }
