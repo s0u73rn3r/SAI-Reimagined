@@ -59,13 +59,14 @@ let user = {};
 ipc.on('loginUser', async(event, loginInfo) => {
   currentCollection = currentDatabase.collection('users');
   user = await currentCollection.findOne({username: loginInfo.username });
+  console.log(user)
 
   if (user === null) {
       dialog.showErrorBox('Username does not exist', 'Try again');
   } else {
 
       if (user.password === loginInfo.password) {
-          event.sender.send('loginSuccesful', user);
+          event.sender.send('loginSuccesful', user,user.role);
       } else {
           dialog.showErrorBox('Password is incorrect', 'Try again');
       }
