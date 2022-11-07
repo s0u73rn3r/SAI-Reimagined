@@ -1,39 +1,22 @@
-<<<<<<< Updated upstream
-
-const mongoose = require("mongoose");
-
-=======
-/*const mongoose = require("mongoose");
-const {ObjectId} = mongoose.Schema;
->>>>>>> Stashed changes
-
-const CoursesSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  course_id: {
-    type: String,
-    required: true,
-  },
-  student: [{
-    type: ObjectId,
-    ref: 'user'
-  }]
-});
-
-const Courses = mongoose.model("courses", CoursesSchema);
-
-<<<<<<< Updated upstream
-module.exports = Question;
-=======
-module.exports = Courses;*/
+const User = require('../models/User');
 
 export default class Courses {
-  constructor(name, course_id, student) {
+  constructor(name, course_id, professor, students) {
     this.name = name;
     this.course_id = course_id;
-    this.student = student;
+    
+    if ((typeof(professor) === "User") && (professor.role === "professor")) {
+      this.professor = professor;
+    }
+
+    this.students = [];
+    if (students !== null) {
+      students.foreach(student => {
+          if ((typeof(student) === "User") && (student.role === "student")) {
+            this.students.push(student);
+          }
+      });
+    }
   }
 
   set name(name) {
@@ -44,10 +27,6 @@ export default class Courses {
     this.course_id = course_id;
   }
 
-  set student(student) {
-    this.student = student;
-  }
-
   get name() {
     return this.name;
   }
@@ -56,8 +35,25 @@ export default class Courses {
     return this.course_id;
   }
 
-  get student() {
-    return this.student;
+  get students() {
+    return this.students;
+  }
+
+  addStudent(student) {
+    if (students !== null) {
+      if ((typeof(student) === "User") && (student.role === "student")) {
+        this.students.push(student);
+      }
+    }
+  }
+
+  addStudents(students) {
+    if (students !== null) {
+      students.foreach(student => {
+          if ((typeof(student) === "User") && (student.role === "student")) {
+            this.students.push(student);
+          }
+      });
+    }
   }
 }
->>>>>>> Stashed changes

@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "test": "jest"
   },
   "keywords": [],
   "author": {
@@ -35,7 +36,11 @@
     "electron": "^21.2.2"
   },
   "jest": {
-    "preset": "@shelf/jest-mongodb"
+    "preset": "@shelf/jest-mongodb",
+    "transformIgnorePatterns": [
+      "!node_modules/jest-runtime/build/index.js"
+    ]
+    
   },
   "config": {
     "forge": {
