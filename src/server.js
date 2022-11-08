@@ -15,9 +15,7 @@ let currentDatabase;
 let currentCollection;
 let window;
 
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
+
 
 MongoClient.connect(URI, (err, client) => {
 
@@ -31,6 +29,9 @@ MongoClient.connect(URI, (err, client) => {
 
 });
 
+if (require('electron-squirrel-startup')) {
+  app.quit();
+}
 
 const makeWindow = () => {
   express();
@@ -48,6 +49,13 @@ const makeWindow = () => {
 };
 
 app.on('ready', makeWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+      app.quit();
+  }
+});
+
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -58,18 +66,17 @@ app.on('activate', () => {
 
 //===============Login====================//
 let user = {};
-let registeringUser = {};
 
 ipc.on('loginUser', async(event, loginInfo) => {
   currentCollection = currentDatabase.collection('users');
-  user = await currentCollection.findOne({username: loginInfo.username });
+  user = await currentCollection.findOne({_username: loginInfo.username });
 
   if (user === null) {
       dialog.showErrorBox('Username does not exist', 'Try again');
   } else {
 
-      if (user.password === loginInfo.password) {
-          event.sender.send('loginSuccesful', user,user.role);
+      if (user._password === loginInfo.password) {
+          event.sender.send('loginSuccesful', user,user._role);
       } else {
           dialog.showErrorBox('Password is incorrect', 'Try again');
       }
@@ -96,10 +103,10 @@ ipc.on('unmatchingPasswords', (event) => {
 //===============Registration====================//
 ipc.on('checkUsernameRegistration', async(event, currentUsername) => {
   currentCollection = currentDatabase.collection('users');
-
-  let newUser = await currentCollection.findOne({username: currentUsername});
-
-  if (newUser !== null) {
+  console.log(currentUsername)
+  let newUser = await currentCollection.findOne({_username: currentUsername});
+  console.log(newUser)
+  if (newUser != null) {
 
       let validUsername = false;
 
@@ -118,9 +125,7 @@ ipc.on('checkUsernameRegistration', async(event, currentUsername) => {
 ipc.on('addUserToDatabase', async(event, currentUser) => {
 
   currentCollection = currentDatabase.collection('users');
-  currentCollection.insert(currentUser);
-
-  registeringUser = await currentCollection.findOne({username: currentUser.username});
+  await currentCollection.insertOne(currentUser);
 
   const myOptions = {
       type: 'info',
