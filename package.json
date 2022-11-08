@@ -20,9 +20,11 @@
   "license": "MIT",
   "homepage": "https://github.com/Kazumi-Nakamura/Capstone-Project#readme",
   "dependencies": {
+    "babel-jest": "^27.5.1",
     "electron-settings": "^4.0.2",
     "electron-squirrel-startup": "^1.0.0",
     "express": "^4.18.1",
+    "jest": "^27.5.1",
     "jquery": "^3.6.1",
     "mongodb": "^4.11.0",
     "mongoose": "^6.6.5"
@@ -33,40 +35,37 @@
     "@electron-forge/maker-rpm": "^6.0.0",
     "@electron-forge/maker-squirrel": "^6.0.0",
     "@electron-forge/maker-zip": "^6.0.0",
-    "electron": "^21.2.2"
-  },
-  "jest": {
-    "preset": "@shelf/jest-mongodb",
-    "transformIgnorePatterns": [
-      "!node_modules/jest-runtime/build/index.js"
-    ]
-    
+    "@types/jest": "^27.5.2",
+    "electron": "^21.2.2",
+    "ts-jest": "^27.1.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
   },
   "config": {
     "forge": {
-        "packagerConfig": {},
-        "makers": [
-            {
-                "name": "@electron-forge/maker-squirrel",
-                "config": {
-                    "name": "SAI: Reimagined"
-                }
-            },
-            {
-                "name": "@electron-forge/maker-zip",
-                "platforms": [
-                    "darwin"
-                ]
-            },
-            {
-                "name": "@electron-forge/maker-deb",
-                "config": {}
-            },
-            {
-                "name": "@electron-forge/maker-rpm",
-                "config": {}
-            }
-        ]
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "SAI: Reimagined"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
     }
-}
+  }
 }

@@ -9,33 +9,43 @@ export default class Courses {
       this.professor = professor;
     }
 
-    this.students = [];
     if (students !== null) {
+      this.students = [];
       students.foreach(student => {
           if ((typeof(student) === "User") && (student.role === "student")) {
             this.students.push(student);
           }
       });
+    } else {
+      this.students = null;
     }
   }
 
-  set name(name) {
+  set setName(name) {
     this.name = name;
   }
 
-  set course_id(course_id) {
+  set setCourse_id(course_id) {
     this.course_id = course_id;
   }
 
-  get name() {
+  set setProfessor(professor) {
+    this.professor = professor;
+  }
+
+  get getName() {
     return this.name;
   }
 
-  get course_id() {
+  get getCourse_id() {
     return this.course_id;
   }
 
-  get students() {
+  get getProfessor() {
+    return this.professor;
+  }
+
+  get getStudents() {
     return this.students;
   }
 

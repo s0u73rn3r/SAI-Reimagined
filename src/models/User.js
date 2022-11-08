@@ -5,23 +5,23 @@ export default class User {
     this.role = role;
   }
 
-  set username(username) {
+  set setUsername(username) {
     this.username = username;
   }
 
-  set password(password) {
+  set setPassword(password) {
     this.password = password;
   }
 
-  set role(role) {
+  set setRole(role) {
 
   }
 
-  get username() {
+  get getUsername() {
     return this.username;
   }
 
-  get role() {
+  get getRole() {
     return this.role;
   }
 }

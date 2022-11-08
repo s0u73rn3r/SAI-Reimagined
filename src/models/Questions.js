@@ -4,19 +4,19 @@ export default class Questions {
     this.answerType = answerType;
   }
 
-  set question(question) {
+  set setQuestion(question) {
     this.question = question;
   }
 
-  set answerType(answerType) {
+  set setAnswerType(answerType) {
     this.answerType = answerType;
   }
 
-  get question() {
+  get getQuestion() {
     return this.question;
   }
 
-  get answerType() {
+  get getAnswerType() {
     return this.answerType;
   }
 }
