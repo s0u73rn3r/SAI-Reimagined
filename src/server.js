@@ -54,12 +54,15 @@ app.on('activate', () => {
   }
 });
 
+
+
+//===============Login====================//
 let user = {};
+let registeringUser = {};
 
 ipc.on('loginUser', async(event, loginInfo) => {
   currentCollection = currentDatabase.collection('users');
   user = await currentCollection.findOne({username: loginInfo.username });
-  console.log(user)
 
   if (user === null) {
       dialog.showErrorBox('Username does not exist', 'Try again');
@@ -87,5 +90,46 @@ ipc.on('emptyPasswords', (event) => {
 ipc.on('unmatchingPasswords', (event) => {
 
   dialog.showErrorBox('Passwords Do Not Match', 'Please enter your password again.');
+
+});
+
+//===============Registration====================//
+ipc.on('checkUsernameRegistration', async(event, currentUsername) => {
+  currentCollection = currentDatabase.collection('users');
+
+  let newUser = await currentCollection.findOne({username: currentUsername});
+
+  if (newUser !== null) {
+
+      let validUsername = false;
+
+      dialog.showErrorBox('Username Already Exists', 'Please try a different username.');
+      event.sender.send('isUsernameValid', validUsername);
+
+  } else {
+
+      let validUsername = true;
+      event.sender.send('isUsernameValid', validUsername);
+
+  }
+
+});
+
+ipc.on('addUserToDatabase', async(event, currentUser) => {
+
+  currentCollection = currentDatabase.collection('users');
+  currentCollection.insert(currentUser);
+
+  registeringUser = await currentCollection.findOne({username: currentUser.username});
+
+  const myOptions = {
+      type: 'info',
+      buttons: ['Continue'],
+      defaultId: 0,
+      title: 'Success',
+      message: 'The account has been created.'
+  };
+
+  dialog.showMessageBox(window, myOptions);
 
 });

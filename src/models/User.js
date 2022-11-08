@@ -36,7 +36,7 @@ export default class User {
   }
 
   set role(role) {
-
+    this.role=role;
   }
 
   get username() {
