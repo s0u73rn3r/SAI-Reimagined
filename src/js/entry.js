@@ -18,9 +18,38 @@ loginBtn.addEventListener("click", function(e) {
     }
 });
 
-ipc.on('loginSuccesful', (event, user) => {
+ipc.on('loginSuccesful', (event, user, role) => {
     
-    window.location.href = '../views/survey.html';
+    if(role==="Student")
+    {
+        window.location.href = '../views/survey.html';
+    }
+    if(role==="Professor")
+    {
+        window.location.href = '../views/professorCourseList.html';
+    }
+    if(role==="Admin")
+    {
+        window.location.href = '../views/adminPanel.html';
+    }
+    else
+    {
+    let alertMsg = document.querySelector('.login');
+    let input = document.createElement("text");
+    input.id = "alert1";
+    let msg = document.createElement("div");
+    msg.classList.add("alert");
+    msg.classList.add("error");
+    let p = document.createElement("p");
+    p.classList.add("inner");
+    let strong = document.createElement("b");
+    strong.append("Error:");
+    msg.prepend(input);
+    p.prepend(strong);
+    p.append("Something went wrong, please email a professor or admin to figure out what went wrong!");
+    msg.append(p);
+    alertMsg.prepend(msg);
+    }
 
 });
 
