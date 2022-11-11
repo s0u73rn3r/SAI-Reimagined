@@ -6,9 +6,9 @@ describe('Users', function() {
   describe('Create Users', function() {
     it('Should create a student user with username, password, and role', function() {
       const testUser = new User("testUsername", "testPassword", "student")
-      assert.equal(testUser.getUsername, "testUsername");
+      assert.equal(testUser._username, "testUsername");
       //assert.equal(testUser.password, "testPassword");          // CHANGE THIS FOR ENCRYPTION!!!!!
-      assert.equal(testUser.getRole, "student");
+      assert.equal(testUser._role, "student");
     });
   });
 });

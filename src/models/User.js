@@ -1,27 +1,27 @@
 export default class User {
   constructor(username, password, role) {
-    this.username = username;
-    this.password = password;
-    this.role = role;
+    this._username = username;
+    this._password = password;
+    this._role = role;
   }
 
-  set setUsername(username) {
-    this.username = username;
+  set _username(username) {
+    this._username = username;
   }
 
-  set setPassword(password) {
-    this.password = password;
+  set _password(password) {
+    this._password = password;
   }
 
-  set setRole(role) {
-
+  set _role(role) {
+    this._role = role;
   }
 
-  get getUsername() {
-    return this.username;
+  get _username() {
+    return this._username;
   }
 
   get getRole() {
-    return this.role;
+    return this._role;
   }
 }

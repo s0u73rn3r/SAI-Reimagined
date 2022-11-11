@@ -58,20 +58,21 @@ let user = {};
 
 ipc.on('loginUser', async(event, loginInfo) => {
   currentCollection = currentDatabase.collection('users');
-  user = await currentCollection.findOne({username: loginInfo.username });
+  user = await currentCollection.findOne({_username: loginInfo.username });
   console.log(user)
 
   if (user === null) {
       dialog.showErrorBox('Username does not exist', 'Try again');
   } else {
 
-      if (user.password === loginInfo.password) {
-          event.sender.send('loginSuccesful', user,user.role);
+      if (user._password === loginInfo.password) {
+          event.sender.send('loginSuccesful', user,user._role);
       } else {
           dialog.showErrorBox('Password is incorrect', 'Try again');
       }
   }
 });
+
 ipc.on('emptyUsername', (event) => {
 
   dialog.showErrorBox('Empty Username Field', 'Please provide a username.');
@@ -88,4 +89,19 @@ ipc.on('unmatchingPasswords', (event) => {
 
   dialog.showErrorBox('Passwords Do Not Match', 'Please enter your password again.');
 
+});
+
+ipc.on('retrieveQuestions', async(event) => {
+  let questions = {};
+  currentCollection = currentDatabase.collection('questions');
+  questions = await currentCollection.find({}).toArray();
+  console.log(questions);
+
+  if (questions === null) {
+      dialog.showErrorBox('Error with questions', 'Try again later');
+  } else {
+    console.log('in else statement');
+    event.sender.send('questionSuccess', questions);
+    console.log('after else');
+  }
 });

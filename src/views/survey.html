@@ -6,31 +6,20 @@
     <meta charset = "UTF-8">
     <h1>Student Assessment of Instruction</h1>
     <!--add css attachments here-->
-    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!--<script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type = "text/javascript" src = "https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+    -->
+    <script type = "module" src = "../js/surveyPage.js"></script>
 </head>
-
-<script type = "text/javascript" src = "surveyPage.js"></script>
 
 <body class = "questionContainer">
     <h3 id = "head3">Student Assessment Survey</h3>
 
-    <div contenteditable="true">
-        <textarea>
-            
-        </textarea>
+    <div id = "questions">
+
     </div>
 
-    <!--<button class = "formBtn" id = "submitBtn" type = "submit" onclick = "submitForm()">submit</button>-->
-    
+    <button class = "formBtn" id = "submitButton" type = "submit">submit</button>
 </body>
-
-<script>
-    require(['config'], function() {
-        require(['surveyPage']);
-    });
-</script>
-
 
 </html>

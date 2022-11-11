@@ -1,22 +1,22 @@
 export default class Questions {
   constructor(question, answerType) {
-    this.question = question;
-    this.answerType = answerType;
+    this._question = question;
+    this._answerType = answerType;
   }
 
-  set setQuestion(question) {
-    this.question = question;
+  set _question(question) {
+    this._question = question;
   }
 
-  set setAnswerType(answerType) {
-    this.answerType = answerType;
+  set _answerType(answerType) {
+    this._answerType = answerType;
   }
 
-  get getQuestion() {
-    return this.question;
+  get _question() {
+    return this._question;
   }
 
-  get getAnswerType() {
-    return this.answerType;
+  get _answerType() {
+    return this._answerType;
   }
 }

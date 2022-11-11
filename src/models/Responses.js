@@ -1,22 +1,22 @@
 export default class Responses {
   constructor(question, answer) {
-    this.question = question;
-    this.answer = answer;
+    this._question = question;
+    this._answer = answer;
   }
 
-  set setQuestion(question) {
-    this.question = question;
+  set _question(question) {
+    this._question = question;
   }
 
-  set setAnswer(answer) {
-    this.answer = answer;
+  set _answer(answer) {
+    this._answer = answer;
   }
 
-  get getQuestion() {
-    return this.question;
+  get _question() {
+    return this._question;
   }
 
-  get getAnswer() {
-    return this.answer;
+  get _answer() {
+    return this._answer;
   }
 }
