@@ -138,3 +138,31 @@ ipc.on('addUserToDatabase', async(event, currentUser) => {
   dialog.showMessageBox(window, myOptions);
 
 });
+//=========Find Functions for Admin=============/
+ipc.on('getListOfProfessors', async(event) => {
+  professors=[];
+
+  currentCollection = currentDatabase.collection('users');
+ let findProfessors = await currentCollection.find({_role: "Professor"});
+ await findProfessors.forEach(prof => professors.push(prof._username))
+  console.log(professors)
+  if (professors === null) {
+      dialog.showErrorBox('No Professors to Display', 'Try adding some!');
+  } else {
+          event.sender.send('professorsRecieved', professors);
+  }
+});
+
+ipc.on('getListOfStudents', async(event) => {
+  students=[];
+
+  currentCollection = currentDatabase.collection('users');
+ let findStudents = await currentCollection.find({_role: "Student"});
+ await findStudents.forEach(stu => students.push(stu._username))
+  console.log(students)
+  if (students === null) {
+      dialog.showErrorBox('No Students to Display', 'Try adding some!');
+  } else {
+          event.sender.send('studentsRecieved', students);
+  }
+});
