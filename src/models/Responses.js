@@ -4,19 +4,19 @@ export default class Responses {
     this._answer = answer;
   }
 
-  set _question(question) {
+  set question(question) {
     this._question = question;
   }
 
-  set _answer(answer) {
+  set answer(answer) {
     this._answer = answer;
   }
 
-  get _question() {
+  get question() {
     return this._question;
   }
 
-  get _answer() {
+  get answer() {
     return this._answer;
   }
 }

@@ -1,17 +1,17 @@
 const User = require('../models/User');
 
 export default class Courses {
-  constructor(name, course_id, professor, students) {
-    this._namename = name;
-    this._course_id = course_id;
+  constructor(courseName, id, teacher, studentList) {
+    this._name = courseName;
+    this._course_id = id;
     
-    if ((typeof(professor) === "User") && (professor._role === "professor")) {
-      this._professor = professor;
+    if ((typeof(teacher) === "User") && (teacher._role === "professor")) {
+      this._professor = teacher;
     }
 
-    if (students !== null) {
+    if (studentList !== null) {
       this._students = [];
-      students.foreach(student => {
+      studentList.foreach(student => {
           if ((typeof(student) === "User") && (student._role === "student")) {
             this._students.push(student);
           }
@@ -21,50 +21,43 @@ export default class Courses {
     }
   }
 
-  set _name(name) {
-    this._name = name;
+  set name(courseName) {
+    this._name = courseName;
   }
 
-  set _course_id(course_id) {
-    this._course_id = course_id;
+  set course_id(id) {
+    this._course_id = id;
   }
 
-  set _professor(professor) {
-    this._professor = professor;
+  set professor(teacher) {
+    this._professor = teacher;
   }
 
-  get _name() {
-    return this._name;
-  }
-
-  get _course_id() {
-    return this._course_id;
-  }
-
-  get _professor() {
-    return this._professor;
-  }
-
-  get _students() {
-    return this._students;
-  }
-
-  addStudent(student) {
-    if (student !== null) {
-      if ((typeof(student) === "User") && (student._role === "student")) {
-        this._students.push(student);
+  set students(studentList) {
+    if (studentList != null) {
+      if (students !== null) {
+        students.foreach(student => {
+            if ((typeof(student) === "User") && (student._role === "student")) {
+              this._students.push(student);
+            }
+        });
       }
     }
   }
 
-  addStudents(students) {
-    if (students !== null) {
-      students.foreach(student => {
-          if ((typeof(student) === "User") && (student.role === "student")) {
-            this._students.push(student);
-          }
-      });
-    }
+  get name() {
+    return this._name;
+  }
+
+  get course_id() {
+    return this._course_id;
+  }
+
+  get professor() {
+    return this._professor;
+  }
+
+  get students() {
+    return this._students;
   }
 }
-
