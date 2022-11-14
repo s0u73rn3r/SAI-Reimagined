@@ -100,8 +100,15 @@ ipc.on('retrieveQuestions', async(event) => {
   if (questions === null) {
       dialog.showErrorBox('Error with questions', 'Try again later');
   } else {
-    console.log('in else statement');
+    // Sends to a function to display the questions
     event.sender.send('questionSuccess', questions);
-    console.log('after else');
   }
 });
+/*
+ipc.on('addResponse', async(event, question, answer) => {
+
+  ///   FIX THIS -----------------------------------------------
+  response = new Responses(question, answer);
+  currentCollection = currentDatabase.collection('responses');
+  currentCollection.insert(response);
+});*/
