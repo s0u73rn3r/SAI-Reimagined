@@ -48,7 +48,6 @@ submitButton.addEventListener("click", function(e) {
             console.log("ERROR");
         }
         
-        // FIX THIS ---------------------------------------
         // Adds response to the database
         if (answerElement != null && question != null && answer != null) {
             ipc.send('addResponse', question.textContent, answer);

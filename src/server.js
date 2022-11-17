@@ -17,7 +17,7 @@ const authMechanism = "DEFAULT";
 
 //const URI = 'mongodb+srv://admin:CapstoneProjectTeamTBD@cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority'
 
-const URI = `mongodb+srv://${username}:${password}@${clusterUrl}/?authMechanism=${authMechanism}`
+const URI = `mongodb+srv://${username}:${password}@${clusterUrl}/?authMechanism=${authMechanism}`;
 let currentDatabase;
 let currentCollection;
 let window;
@@ -132,8 +132,6 @@ ipc.on('retrieveQuestions', async(event) => {
 });
 
 ipc.on('addResponse', async(event, question, answer) => {
-  ///   FIX THIS -----------------------------------------------
-  
   currentCollection = currentDatabase.collection('responses');
   currentCollection.insertOne({
     _question : question,
