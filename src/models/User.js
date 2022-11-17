@@ -21,29 +21,29 @@ const User = mongoose.model("users", UserSchema);
 module.exports = User;*/
 
 export default class User {
-  constructor(username, password, role) {
-    this.username = username;
-    this.password = password;
-    this.role = role;
+  constructor(userName, password, role) {
+    this._username = userName;
+    this._password = password;
+    this._role = role;
   }
 
-  set username(username) {
-    this.username = username;
+  set username(userName) {
+    this._username = userName;
   }
 
   set password(password) {
-    this.password = password;
+    this._password = password;
   }
 
   set role(role) {
-
+    this._role=role;
   }
 
   get username() {
-    return this.username;
+    return this._username;
   }
 
   get role() {
-    return this.role;
+    return this._role;
   }
 }
