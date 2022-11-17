@@ -19,26 +19,29 @@ submitButton.addEventListener("click", function(e) {
             console.log(question.textContent);
         }
 
+        let answerElement = null;
         let answer = null;
-
         // Checks what type of question to get an answer for
         if (document.getElementById(i + "text") != null) {      
-            answer = document.getElementById(i + "text");
-            console.log(answer.value);
+            answerElement = document.getElementById(i + "text");
+            console.log(answerElement.value);
+            answer = answerElement.value;
         } else if (document.getElementsByName(i + "radial") != null) {
-            answer = document.getElementsByName(i + "radial");
+            answerElement = document.getElementsByName(i + "radial");
             console.log("radial\n\n\n");
-            answer.forEach(radio => {
+            answerElement.forEach(radio => {
                 if (radio.checked) {
                     console.log(radio.value);
+                    answer = radio.value;
                 }
             });
         } else if (document.getElementsByName(i + "gradeRadial") != null) {
-            answer = document.getElementsByName(i + "gradeRadial");
+            answerElement = document.getElementsByName(i + "gradeRadial");
             console.log("gradeRadial\n\n\n");
-            answer.forEach(radio => {
+            answerElement.forEach(radio => {
                 if (radio.checked) {
                     console.log(radio.value);
+                    answer = radio.value;
                 }
             });
         } else {
@@ -47,8 +50,8 @@ submitButton.addEventListener("click", function(e) {
         
         // FIX THIS ---------------------------------------
         // Adds response to the database
-        if (answer != null && question != null) {
-            ipc.send('addResponse', question, answer);
+        if (answerElement != null && question != null && answer != null) {
+            ipc.send('addResponse', question.textContent, answer);
         }
     }
     

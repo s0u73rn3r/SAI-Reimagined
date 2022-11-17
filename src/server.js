@@ -130,10 +130,13 @@ ipc.on('retrieveQuestions', async(event) => {
     event.sender.send('questionSuccess', questions);
   }
 });
-/*
+
 ipc.on('addResponse', async(event, question, answer) => {
   ///   FIX THIS -----------------------------------------------
-  response = new Responses(question, answer);
+  
   currentCollection = currentDatabase.collection('responses');
-  currentCollection.insert(response);
-});*/
+  currentCollection.insertOne({
+    _question : question,
+    _answer : answer
+  });
+});
