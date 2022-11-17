@@ -6,11 +6,18 @@ const BrowserWindow = electron.BrowserWindow;
 
 const express = require('express')
 const path = require('path');
-const MongoClient = require('mongodb').MongoClient;
+//const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('mongodb');
-const { ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
-const URI = 'mongodb+srv://admin:CapstoneProjectTeamTBD@cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority'
+const username = encodeURIComponent("angelica");
+const password = encodeURIComponent("3s3krNKpypN5HMQd");
+const clusterUrl = "cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority";
+const authMechanism = "DEFAULT";
+
+//const URI = 'mongodb+srv://admin:CapstoneProjectTeamTBD@cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority'
+
+const URI = `mongodb+srv://${username}:${password}@${clusterUrl}/?authMechanism=${authMechanism}`
 let currentDatabase;
 let currentCollection;
 let window;
@@ -19,17 +26,34 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-MongoClient.connect(URI, (err, client) => {
+const client = new MongoClient(URI);
 
+async function run() {
+  //try {
+    // Establish and verify connection
+    //await client.db("admin").command({ ping: 1 });
+    //currentDatabase = await client.db('Capstone-Db').command({ping: 1});
+    await client.db('Capstone-Db').command({ping: 1});
+    console.log("Connected to MongoDB Atlas...");
+    currentDatabase = client.db('Capstone-Db');
+  //} finally {
+    // Ensures that the client will close when you finish/error
+    //await client.close();
+  //}
+}
+
+run().catch(console.dir);
+/*MongoClient.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, client) {
+  
   if (err) {
       console.log("Something unexpected happened connecting to MongoDB Atlas...");
   }
 
   console.log("Connected to MongoDB Atlas...");
 
-  currentDatabase = client.db('Capstone-Db'); /* currentDatabase contains a Db */
+  currentDatabase = client.db('Capstone-Db'); /* currentDatabase contains a Db 
 
-});
+});*/
 
 
 const makeWindow = () => {
@@ -57,9 +81,10 @@ app.on('activate', () => {
 let user = {};
 
 ipc.on('loginUser', async(event, loginInfo) => {
+  //onsole.log("currentDb" + client.currentDatabase);
   currentCollection = currentDatabase.collection('users');
   user = await currentCollection.findOne({_username: loginInfo.username });
-  console.log(user)
+  console.log(user);
 
   if (user === null) {
       dialog.showErrorBox('Username does not exist', 'Try again');
@@ -93,6 +118,7 @@ ipc.on('unmatchingPasswords', (event) => {
 
 ipc.on('retrieveQuestions', async(event) => {
   let questions = {};
+  
   currentCollection = currentDatabase.collection('questions');
   questions = await currentCollection.find({}).toArray();
   console.log(questions);
@@ -106,7 +132,6 @@ ipc.on('retrieveQuestions', async(event) => {
 });
 /*
 ipc.on('addResponse', async(event, question, answer) => {
-
   ///   FIX THIS -----------------------------------------------
   response = new Responses(question, answer);
   currentCollection = currentDatabase.collection('responses');
