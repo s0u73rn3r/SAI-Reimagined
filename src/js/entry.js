@@ -8,7 +8,6 @@ loginBtn.addEventListener("click", function(e) {
 
     let un = document.getElementById('username').value;
     let pw = document.getElementById('pwrd').value;
-    console.log(un,pw)
     if (un === "") {
         ipc.send('emptyUsername');
     } else if (pw === "") {

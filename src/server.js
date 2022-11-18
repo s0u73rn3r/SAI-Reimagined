@@ -15,9 +15,7 @@ let currentDatabase;
 let currentCollection;
 let window;
 
-if (require('electron-squirrel-startup')) {
-  app.quit();
-}
+
 
 MongoClient.connect(URI, (err, client) => {
 
@@ -31,6 +29,9 @@ MongoClient.connect(URI, (err, client) => {
 
 });
 
+if (require('electron-squirrel-startup')) {
+  app.quit();
+}
 
 const makeWindow = () => {
   express();
@@ -48,18 +49,27 @@ const makeWindow = () => {
 };
 
 app.on('ready', makeWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+      app.quit();
+  }
+});
+
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
   }
 });
 
+
+
+//===============Login====================//
 let user = {};
 
 ipc.on('loginUser', async(event, loginInfo) => {
   currentCollection = currentDatabase.collection('users');
   user = await currentCollection.findOne({_username: loginInfo.username });
-  console.log(user)
 
   if (user === null) {
       dialog.showErrorBox('Username does not exist', 'Try again');
@@ -91,6 +101,7 @@ ipc.on('unmatchingPasswords', (event) => {
 
 });
 
+
 ipc.on('retrieveQuestions', async(event) => {
   let questions = {};
   currentCollection = currentDatabase.collection('questions');
@@ -112,3 +123,70 @@ ipc.on('addResponse', async(event, question, answer) => {
   currentCollection = currentDatabase.collection('responses');
   currentCollection.insert(response);
 });*/
+
+//===============Registration====================//
+ipc.on('checkUsernameRegistration', async(event, currentUsername) => {
+  currentCollection = currentDatabase.collection('users');
+  console.log(currentUsername)
+  let newUser = await currentCollection.findOne({_username: currentUsername});
+  console.log(newUser)
+  if (newUser != null) {
+
+      let validUsername = false;
+
+      dialog.showErrorBox('Username Already Exists', 'Please try a different username.');
+      event.sender.send('isUsernameValid', validUsername);
+
+  } else {
+
+      let validUsername = true;
+      event.sender.send('isUsernameValid', validUsername);
+
+  }
+
+});
+
+ipc.on('addUserToDatabase', async(event, currentUser) => {
+
+  currentCollection = currentDatabase.collection('users');
+  await currentCollection.insertOne(currentUser);
+
+  const myOptions = {
+      type: 'info',
+      buttons: ['Continue'],
+      defaultId: 0,
+      title: 'Success',
+      message: 'The account has been created.'
+  };
+
+  dialog.showMessageBox(window, myOptions);
+
+});
+//=========Find Functions for Admin=============/
+ipc.on('getListOfProfessors', async(event) => {
+  professors=[];
+
+  currentCollection = currentDatabase.collection('users');
+ let findProfessors = await currentCollection.find({_role: "Professor"});
+ await findProfessors.forEach(prof => professors.push(prof._username))
+  console.log(professors)
+  if (professors === null) {
+      dialog.showErrorBox('No Professors to Display', 'Try adding some!');
+  } else {
+          event.sender.send('professorsRecieved', professors);
+  }
+});
+
+ipc.on('getListOfStudents', async(event) => {
+  students=[];
+
+  currentCollection = currentDatabase.collection('users');
+ let findStudents = await currentCollection.find({_role: "Student"});
+ await findStudents.forEach(stu => students.push(stu._username))
+  console.log(students)
+  if (students === null) {
+      dialog.showErrorBox('No Students to Display', 'Try adding some!');
+  } else {
+          event.sender.send('studentsRecieved', students);
+  }
+});
