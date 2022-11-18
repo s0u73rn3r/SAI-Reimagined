@@ -166,3 +166,18 @@ ipc.on('getListOfStudents', async(event) => {
           event.sender.send('studentsRecieved', students);
   }
 });
+
+ipc.on('retrieveCourses', async(event) => {
+  let courses =[];
+  currentCollection = currentDatabase.collection('courses');
+  let findCourses = await currentCollection.find({});
+  await findCourses.forEach(crs => courses.push(crs._name))
+  console.log(courses);
+
+  if (courses === null) {
+      dialog.showErrorBox('Error with courses', 'Try again later');
+  } else {
+    // Sends to a function to display the courses
+    event.sender.send('courseSuccess', courses);
+  }
+});

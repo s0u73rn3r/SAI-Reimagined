@@ -1,14 +1,27 @@
-//Log user out- return to login page
-function logout() {
-    window.location.href="entry.html";
-}
+import Courses from "../models/Courses.js";
+import User from "../models/User.js";
 
-//Not sure if this is the correct way to go about this
-function pullCourse() {
-    for(let i = 0; i <=4; i++) {
-        //Pulls courses from DB to display in course list html
+let buttonsDiv = document.getElementById("buttons");
+let logoutButton = document.getElementById("logout");
+
+const electron = require('electron');
+const ipc = electron.ipcRenderer;
+
+ipc.send('retrieveCourses');
+
+
+ipc.on('courseSuccess', (event, courses) => {
+    
+    for(let i = 0; i < courses.length; i++) {
+        let button = $(`<input type ="button" value = "${courses[i]}"></input><br>`);
+        $(button).appendTo(buttonsDiv);
     }
-}
+    
+});
+
+logoutButton.addEventListener("click", function(e) {
+    window.location.href = '../views/entry.html';
+})
 
 function startSAI() {
     //conditional to check has student completed the selected SAI
@@ -16,3 +29,4 @@ function startSAI() {
     //else goto SAI survey html
     window.location.href="survey.html";
 }
+
