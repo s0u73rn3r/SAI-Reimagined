@@ -15,9 +15,7 @@ const password = encodeURIComponent("3s3krNKpypN5HMQd");
 const clusterUrl = "cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority";
 const authMechanism = "DEFAULT";
 
-//const URI = 'mongodb+srv://admin:CapstoneProjectTeamTBD@cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority'
-
-const URI = `mongodb+srv://${username}:${password}@${clusterUrl}/?authMechanism=${authMechanism}`;
+const URI = `mongodb+srv://${username}:${password}@${clusterUrl}`;
 let currentDatabase;
 let currentCollection;
 let window;
@@ -43,18 +41,6 @@ async function run() {
 }
 
 run().catch(console.dir);
-/*MongoClient.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true}, function (err, client) {
-  
-  if (err) {
-      console.log("Something unexpected happened connecting to MongoDB Atlas...");
-  }
-
-  console.log("Connected to MongoDB Atlas...");
-
-  currentDatabase = client.db('Capstone-Db'); /* currentDatabase contains a Db 
-
-});*/
-
 
 const makeWindow = () => {
   express();
@@ -131,7 +117,7 @@ ipc.on('retrieveQuestions', async(event) => {
   }
 });
 
-ipc.on('addResponse', async(event, question, answer) => {
+ipc.on('addResponse', (event, question, answer) => {
   currentCollection = currentDatabase.collection('responses');
   currentCollection.insertOne({
     _question : question,
