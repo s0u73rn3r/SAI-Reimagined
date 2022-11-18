@@ -136,6 +136,7 @@ ipc.on('addResponse', (event, question, answer) => {
     _question : question,
     _answer : answer
   });
+});
 
 //===============Registration====================//
 ipc.on('checkUsernameRegistration', async(event, currentUsername) => {
@@ -196,7 +197,7 @@ ipc.on('getListOfStudents', async(event) => {
   currentCollection = currentDatabase.collection('users');
  let findStudents = await currentCollection.find({_role: "Student"});
  await findStudents.forEach(stu => students.push(stu._username))
-  console.log(students)
+  console.log(students);
   if (students === null) {
       dialog.showErrorBox('No Students to Display', 'Try adding some!');
   } else {
