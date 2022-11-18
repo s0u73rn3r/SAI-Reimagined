@@ -1,12 +1,14 @@
 export default class User {
-  constructor(username, password, role) {
-    this._username = username;
+
+  constructor(userName, password, role) {
+    this._username = userName;
     this._password = password;
     this._role = role;
   }
 
-  set username(username) {
-    this._username = username;
+
+  set username(userName) {
+    this._username = userName;
   }
 
   set password(password) {
@@ -21,7 +23,7 @@ export default class User {
     return this._username;
   }
 
-  get getRole() {
+  get role() {
     return this._role;
   }
 }
