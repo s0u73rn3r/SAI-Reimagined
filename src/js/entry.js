@@ -21,7 +21,7 @@ ipc.on('loginSuccesful', (event, user, role) => {
     
     if(role==="Student")
     {
-        window.location.href = '../views/survey.html';
+        window.location.href = '../views/courseList.html';
     }
     if(role==="Professor")
     {

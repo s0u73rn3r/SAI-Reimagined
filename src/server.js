@@ -6,7 +6,6 @@ const BrowserWindow = electron.BrowserWindow;
 
 const express = require('express')
 const path = require('path');
-//const MongoClient = require('mongodb').MongoClient;
 const mongodb = require('mongodb');
 const { MongoClient } = require('mongodb');
 
@@ -25,17 +24,10 @@ let window;
 const client = new MongoClient(URI);
 
 async function run() {
-  //try {
-    // Establish and verify connection
-    //await client.db("admin").command({ ping: 1 });
-    //currentDatabase = await client.db('Capstone-Db').command({ping: 1});
-    await client.db('Capstone-Db').command({ping: 1});
-    console.log("Connected to MongoDB Atlas...");
-    currentDatabase = client.db('Capstone-Db');
-  //} finally {
-    // Ensures that the client will close when you finish/error
-    //await client.close();
-  //}
+  // Establish and verify connection
+  await client.db('Capstone-Db').command({ping: 1});
+  console.log("Connected to MongoDB Atlas...");
+  currentDatabase = client.db('Capstone-Db');
 }
 
 
@@ -68,11 +60,11 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
+/*app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
   }
-});
+});*/
 
 
 
@@ -202,5 +194,20 @@ ipc.on('getListOfStudents', async(event) => {
       dialog.showErrorBox('No Students to Display', 'Try adding some!');
   } else {
           event.sender.send('studentsRecieved', students);
+  }
+});
+
+ipc.on('retrieveCourses', async(event) => {
+  let courses =[];
+  currentCollection = currentDatabase.collection('courses');
+  let findCourses = await currentCollection.find({});
+  await findCourses.forEach(crs => courses.push(crs._name))
+  console.log(courses);
+
+  if (courses === null) {
+      dialog.showErrorBox('Error with courses', 'Try again later');
+  } else {
+    // Sends to a function to display the courses
+    event.sender.send('courseSuccess', courses);
   }
 });

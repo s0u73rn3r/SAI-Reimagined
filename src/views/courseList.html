@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Courses</title>
-    <script src="../js/courseList.js"> </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="module" src="../js/courseList.js"> </script>
 </head>
 
 <body style="background-color:#2a98f1;">
@@ -23,7 +24,7 @@
     </style>
 
     <logout class="logout">
-        <button onclick="logout()">Log Out</button> <br>
+        <button id="logout">Log Out</button> <br>
     </logout>
 
     <style>
@@ -62,11 +63,8 @@
         </style>
         
         <!--Placeholder course names, need to pull course name of student from DB using pullCourse()-->
-        <div class="btn-group">
-            <button onclick="startSAI()">Calculus</button>
-            <button onclick="startSAI()">JavaScript</button>
-            <button onclick="startSAI()">Physics</button>
-            <button onclick="startSAI()">English Comp</button>
+        <div class="btn-group" id="buttons">
+            
         </div>
     </fieldset>
 
