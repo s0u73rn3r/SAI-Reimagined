@@ -1,36 +1,14 @@
-const mongoose = require("mongoose");
-const URI = 'mongodb+srv://admin:CapstoneProjectTeamTBD@cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority'
-const User = require("../models/User");
-const { disable } = require("../routes");
+var assert = require('assert');
+//const User = require('../src/models/User');
+import User from "../src/models/User";
 
-const testUserData = {
-  username: "username",
-  password: "password",
-  role: "student"
-};
-
-describe('Inserting a User', () => {
-  jest.setTimeout(10000);
-  let connection;
-  let db;
-
-  beforeAll(async () => {
-    connection = await mongoose.connect(URI);
-    db = mongoose.connection;
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
-
-  it('Should Insert a User', async () => {
-    const users = db.collection('users');
-    
-    await users.insertOne(testUserData);
-
-    const insertedUser = await users.findOne({username: 'username'});
-    expect(insertedUser.username).toEqual(testUserData.username);
-    expect(insertedUser.password).toEqual(testUserData.password);
-    expect(insertedUser.role).toEqual(testUserData.role);
+describe('Users', function() {
+  describe('Create Users', function() {
+    it('Should create a student user with username, password, and role', function() {
+      const testUser = new User("testUsername", "testPassword", "student")
+      assert.equal(testUser._username, "testUsername");
+      //assert.equal(testUser.password, "testPassword");          // CHANGE THIS FOR ENCRYPTION!!!!!
+      assert.equal(testUser._role, "student");
+    });
   });
 });

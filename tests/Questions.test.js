@@ -1,34 +1,14 @@
-const mongoose = require("mongoose");
-const URI = 'mongodb+srv://admin:CapstoneProjectTeamTBD@cluster0.sroumus.mongodb.net/Capstone-Db?retryWrites=true&w=majority'
-const Questions = require("../models/Questions");
-const { disable } = require("../routes");
+var assert = require('assert');
+//const Questions = require('../src/models/Questions');
 
-const testQuestionData = {
-    question: "Am I a question?",
-    answerType: "textbox"
-};
+import Questions from '../src/models/Questions';
 
-describe('Inserting a Question', () => {
-  jest.setTimeout(10000);
-  let connection;
-  let db;
-
-  beforeAll(async () => {
-    connection = await mongoose.connect(URI);
-    db = mongoose.connection;
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
-
-  it('Should Insert a Question', async () => {
-    const questions = db.collection('questions');
-    
-    await questions.insertOne(testQuestionData);
-
-    const insertedQuestion = await questions.findOne({question: 'Am I a question?'});
-    expect(insertedQuestion.question).toEqual(testQuestionData.question);
-    expect(insertedQuestion.answerType).toEqual(testQuestionData.answerType);
+describe('Questions', function() {
+  describe('Create Questions', function() {
+    it('Should create a question with question and question type', function() {
+      const testQuestion = new Questions("Is this a question?", "short answer");
+      assert.equal(testQuestion._question, "Is this a question?");
+      assert.equal(testQuestion._answerType, "short answer");
+    });
   });
 });

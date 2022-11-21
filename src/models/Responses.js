@@ -1,40 +1,22 @@
-/*const mongoose = require("mongoose");
-const {ObjectId} = mongoose.Schema;
-
-
-const ResponseSchema = new mongoose.Schema({
-  question: {type: ObjectId, ref: 'questions'},
-  answer: {
-    type: String,
-    required: true,
-  },
-  student:{type: ObjectId, ref: 'user'}
-});
-
-const Response = mongoose.model("response", ResponseSchema);
-
-module.exports = Response;*/
-
 export default class Responses {
-  constructor(question, answer, student) {
-    this.question = question;
-    this.answer = answer;
-    this.student = student;
+  constructor(question, answer) {
+    this._question = question;
+    this._answer = answer;
   }
 
   set question(question) {
-    this.question = question;
+    this._question = question;
   }
 
   set answer(answer) {
-    this.answer = answer;
+    this._answer = answer;
   }
 
   get question() {
-    return this.question;
+    return this._question;
   }
 
   get answer() {
-    return this.answer;
+    return this._answer;
   }
 }
