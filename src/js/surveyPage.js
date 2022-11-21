@@ -15,37 +15,31 @@ submitButton.addEventListener("click", function(e) {
     // Loops through all of the questions
     for (let i = 0; i < questionCount; i++) {
         let question = document.getElementById(i + "q");
-        if (question != null) {
-            console.log(question.textContent);
-        }
-
         let answerElement = null;
         let answer = null;
         // Checks what type of question to get an answer for
         if (document.getElementById(i + "text") != null) {      
             answerElement = document.getElementById(i + "text");
-            console.log(answerElement.value);
+            
             answer = answerElement.value;
         } else if (document.getElementsByName(i + "radial") != null) {
             answerElement = document.getElementsByName(i + "radial");
-            console.log("radial\n\n\n");
+            
             answerElement.forEach(radio => {
                 if (radio.checked) {
-                    console.log(radio.value);
                     answer = radio.value;
                 }
             });
         } else if (document.getElementsByName(i + "gradeRadial") != null) {
             answerElement = document.getElementsByName(i + "gradeRadial");
-            console.log("gradeRadial\n\n\n");
+            
             answerElement.forEach(radio => {
                 if (radio.checked) {
-                    console.log(radio.value);
                     answer = radio.value;
                 }
             });
         } else {
-            console.log("ERROR");
+            console.log("ERROR IN RESPONSE RETRIEVAL");
         }
         
         // Adds response to the database
@@ -54,7 +48,9 @@ submitButton.addEventListener("click", function(e) {
         }
     }
     
-    document.write("Submission Received");
+    /*****************************CHECK THIS**************************************/
+    setTimeout(function() {  document.write("Survey Submitted"); }, 10000);
+    document.location.href = "../views/courseList.html";
 });
 
  

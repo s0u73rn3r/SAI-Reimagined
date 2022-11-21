@@ -28,7 +28,9 @@
     "jquery": "^3.6.1",
     "mongodb": "^4.11.0",
     "mongoose": "^6.6.5",
-    "puppeteer": "^19.2.2"
+    "puppeteer": "^19.2.2",
+    "puppeteer-core": "^19.2.2",
+    "puppeteer-in-electron": "^3.0.5"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
@@ -38,7 +40,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0",
     "@electron-forge/maker-zip": "^6.0.0",
     "@types/jest": "^27.5.2",
-    "electron": "^21.2.2",
+    "electron": "^21.3.0",
     "ts-jest": "^27.1.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
