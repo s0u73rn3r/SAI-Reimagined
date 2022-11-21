@@ -12,7 +12,7 @@ ipc.send('retrieveCourses');
 
 
 ipc.on('courseSuccess', (event, courses) => {
-    
+    console.log("made it to course success");
     for(let i = 0; i < courses.length; i++) {
         let button = $(`<input type ="button" id = "startSurvey" value = "${courses[i]}"></input><br>`);
         $(button).appendTo(buttonsDiv);

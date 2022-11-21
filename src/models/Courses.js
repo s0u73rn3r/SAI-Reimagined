@@ -1,6 +1,3 @@
-
-const User = require('../models/User');
-
 export default class Courses {
   constructor(courseName, id, teacher, studentList) {
     this._name = courseName;
