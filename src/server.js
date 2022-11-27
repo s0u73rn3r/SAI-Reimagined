@@ -70,6 +70,7 @@ app.on('window-all-closed', () => {
 
 //===============Login====================//
 let user = {};
+let currentUsername;
 
 ipc.on('loginUser', async(event, loginInfo) => {
   //onsole.log("currentDb" + client.currentDatabase);
@@ -81,6 +82,8 @@ ipc.on('loginUser', async(event, loginInfo) => {
   } else {
 
       if (user._password === loginInfo.password) {
+          currentUsername=user._username;
+          console.log(currentUsername)
           event.sender.send('loginSuccesful', user,user._role);
       } else {
           dialog.showErrorBox('Password is incorrect', 'Try again');
@@ -197,21 +200,21 @@ ipc.on('getListOfStudents', async(event) => {
   }
 });
 
-ipc.on('retrieveCourses', async(event, currentUsername) => {
+ipc.on('retrieveCourses', async(event) => {
   let courses =[];
   currentCollection = currentDatabase.collection('courses');
+  console.log(currentUsername)
   let findCourses = await currentCollection.find({});
-  let findUsername = await currentCollection.find({username});
 
   //original code, lists all courses
-  await findCourses.forEach(crs => courses.push(crs._name))
+  //await findCourses.forEach(crs => courses.push(crs._name))
 
   //if statement doesnt work?
-  /*await findCourses.forEach(crs =>
-      if(crs._student === currentUsername) {
+  await findCourses.forEach(crs =>{
+      if(crs._student.username === currentUsername) {
         courses.push(crs._name)
       }
-    )*/
+})
 
   //Using when incorrectly? probably
   /*const getCourse = (findUsername === currentUsername);
