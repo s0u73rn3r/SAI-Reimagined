@@ -197,11 +197,32 @@ ipc.on('getListOfStudents', async(event) => {
   }
 });
 
-ipc.on('retrieveCourses', async(event) => {
+ipc.on('retrieveCourses', async(event, currentUsername) => {
   let courses =[];
   currentCollection = currentDatabase.collection('courses');
   let findCourses = await currentCollection.find({});
+  let findUsername = await currentCollection.find({username});
+
+  //original code, lists all courses
   await findCourses.forEach(crs => courses.push(crs._name))
+
+  //if statement doesnt work?
+  /*await findCourses.forEach(crs =>
+      if(crs._student === currentUsername) {
+        courses.push(crs._name)
+      }
+    )*/
+
+  //Using when incorrectly? probably
+  /*const getCourse = (findUsername === currentUsername);
+  getCourse.when(true, crs => courses.push(crs._name));*/
+
+  //no output
+  /*
+  if(findUsername === currentUsername) {
+    await findCourses.forEach(crs => courses.push(crs._name));
+  }*/
+  
   console.log(courses);
 
   if (courses === null) {
