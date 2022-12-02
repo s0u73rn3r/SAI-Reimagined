@@ -1,7 +1,7 @@
-const puppeteer = require('puppeteer');
+/*const puppeteer = require('puppeteer');
 
 (async () => {
-  const pathToExtension = "https://localhost:3000" + require('path').join(__dirname, '../src/views/entry.html');
+  const pathToExtension =  + require('path').join(__dirname, '../src/views/entry.html');
   console.log("==========================" + pathToExtension);
   
   const browser = await puppeteer.launch({
@@ -20,7 +20,7 @@ const puppeteer = require('puppeteer');
   await page.click('log');
 
   await browser.close();
-})();
+})();*/
 /*
 import {BrowserWindow, app} from "electron";
 import pie from "puppeteer-in-electron";
@@ -40,3 +40,33 @@ const main = async () => {
 };
 
 main();*/
+
+const electron = require("electron");
+const puppeteer = require("puppeteer-core");
+
+//setTimeout(function() {}, 5000);
+
+
+(async () => {
+  try {
+    const app = await puppeteer.launch({
+      executablePath: electron,
+      args: ["."],
+      headless: true
+    });
+    const pages = await app.pages();
+    const [page] = pages;
+
+    await page.type('input[id=username]', 'username');
+    await page.type('input[id=pwrd]', 'password');
+    await page.waitForTimeout(6000);
+
+    await page.waitForTimeout(4000);
+
+    await page.waitForTimeout(4000);
+    await page.close();
+    await app.close();
+  } catch (error) {
+    console.error(error);
+  }
+})();
