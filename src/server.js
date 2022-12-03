@@ -62,7 +62,7 @@ app.on('window-all-closed', () => {
 
 /*app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      createWisndow();
   }
 });*/
 
@@ -214,7 +214,7 @@ ipc.on('retrieveCourses', async(event) => {
       if(crs._student.username === currentUsername) {
         courses.push(crs._name)
       }
-})
+  })
 
   //Using when incorrectly? probably
   /*const getCourse = (findUsername === currentUsername);

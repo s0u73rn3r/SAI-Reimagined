@@ -1,5 +1,5 @@
 var assert = require('assert');
-//const Responses = require('../src/models/Responses');
+
 import Responses from "../src/models/Responses";
 
 describe('Responses', function() {

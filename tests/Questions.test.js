@@ -1,5 +1,4 @@
 var assert = require('assert');
-//const Questions = require('../src/models/Questions');
 
 import Questions from '../src/models/Questions';
 
