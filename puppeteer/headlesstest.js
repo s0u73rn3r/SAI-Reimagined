@@ -46,24 +46,24 @@ const puppeteer = require("puppeteer-core");
 
 //setTimeout(function() {}, 5000);
 
-
+// testing successful login
 (async () => {
   try {
     const app = await puppeteer.launch({
       executablePath: electron,
       args: ["."],
-      headless: true
+      headless: false
     });
     const pages = await app.pages();
     const [page] = pages;
 
-    await page.type('input[id=username]', 'username');
-    await page.type('input[id=pwrd]', 'password');
-    await page.waitForTimeout(6000);
+    await page.type('input[id=username]', 'Student1');
+    await page.type('input[id=pwrd]', 'testing');
+    await page.click('button#log');
+    
+    //const loginSuccess = 'div#buttons.btn-group';
+    //await page.waitForSelector(loginSuccess);
 
-    await page.waitForTimeout(4000);
-
-    await page.waitForTimeout(4000);
     await page.close();
     await app.close();
   } catch (error) {

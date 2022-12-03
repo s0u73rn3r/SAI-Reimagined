@@ -214,7 +214,7 @@ ipc.on('retrieveCourses', async(event) => {
       if(crs._student.username === currentUsername) {
         courses.push(crs._name)
       }
-})
+  })
 
   //Using when incorrectly? probably
   /*const getCourse = (findUsername === currentUsername);

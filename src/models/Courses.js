@@ -3,17 +3,27 @@ export default class Courses {
     this._name = courseName;
     this._course_id = id;
     
-    if ((typeof(teacher) === "User") && (teacher._role === "professor")) {
-      this._professor = teacher;
+    if (teacher !== null) {
+      if (teacher._role == "professor") {
+        this._professor = teacher;
+      }
     }
 
     if (studentList !== null) {
       this._students = [];
-      studentList.foreach(student => {
-          if ((typeof(student) === "User") && (student._role === "student")) {
+
+      if (!Array.isArray(studentList)) {
+        if (studentList._role == "student") {
+          this._students.push(studentList);
+        }
+      } else {
+      
+        studentList.forEach(student => {
+          if (student._role == "student") {
             this._students.push(student);
           }
-      });
+        });
+      }
     } else {
       this._students = null;
     }
@@ -33,11 +43,18 @@ export default class Courses {
 
   set students(studentList) {
     if (studentList != null) {
-      if (students !== null) {
-        students.foreach(student => {
-            if ((typeof(student) === "User") && (student._role === "student")) {
-              this._students.push(student);
-            }
+      if (_students === null) {
+        this._students = [];
+      }
+      
+      if (Array.isArray(studentList)) {
+        this._students.push(studentList);
+      } else {
+        
+        studentList.foreach(student => {
+          if ((typeof(student) == "User") && (student._role == "student")) {
+            this._students.push(student);
+          }
         });
       }
     }

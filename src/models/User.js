@@ -3,9 +3,12 @@ export default class User {
   constructor(userName, password, role) {
     this._username = userName;
     this._password = password;
-    this._role = role;
+    if (role == "admin" || role == "professor" || role == "student") {
+      this._role = role;
+    } else {
+      this._role = null;
+    }
   }
-
 
   set username(userName) {
     this._username = userName;
@@ -16,7 +19,11 @@ export default class User {
   }
 
   set role(role) {
-    this._role = role;
+    if (role == "admin" || role == "professor" || role == "student") {
+      this._role = role;
+    } else {
+      this._role = null;
+    }
   }
 
   get username() {
