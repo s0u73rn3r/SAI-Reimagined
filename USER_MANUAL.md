@@ -68,3 +68,7 @@ OR
 3.  Click *Log in Here!* button.
 4.  The Professor Panel is displayed.
 5.  Exit window. This ends Professor account interactivity.
+
+##### Test:
+Jest: npm test
+Puppeteer: node puppeteer/headlesstest.js
